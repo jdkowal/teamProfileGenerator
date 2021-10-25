@@ -1,29 +1,30 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
-const intern = require("./lib/Intern");
+const Intern = require("./lib/Intern");
 const inquirer = require('inquirer');
 const fs = require('fs');
 
 const employeeArray = ["Engineer","Intern","I do no want to add any more team members."]
+
 const managerQuestions = [
     {
         type:"input",
-        name: "managerName",
-        message: "What is the team manager's name?"
+        name: "Name",
+        message: "What is the team member's name?"
     },
     {
         type:"input",
         name: "idNum",
-        message: "What is the team manager's ID number?"
+        message: "What is the team member's ID number?"
     },
     {
         type:"input",
         name: "email",
-        message: "What is the employee's email?"
+        message: "What is the member's email?"
     },
     {
         type:"input",
-        name: "officeNum",
+        name: "officeNumber",
         message: "What is the team manager's office number?"
     }
 
@@ -32,7 +33,7 @@ const managerQuestions = [
 const engineerQuestions = [
     {
         type:"input",
-        name: "managerName",
+        name: "Name",
         message: "What is the engineer's name?"
     },
     {
@@ -56,7 +57,7 @@ const engineerQuestions = [
 const internQuestions = [
     {
         type:"input",
-        name: "managerName",
+        name: "Name",
         message: "What is the intern's name?"
     },
     {
@@ -85,24 +86,41 @@ const addNewEmployee =
     choices: employeeArray
 };
 
-function init() {
+function getManagerInfo(){
     inquirer
-.prompt(managerQuestions)
-.then((anwsers)=>{
-    console.log(anwsers)
+    .prompt(managerQuestions)
+    .then((data)=>{
+        console.log(data)
+        
 })
-}
-// .then console.log(data)}
-// .then((data)=>{
-//     fs.writeFile("README.md",generateMarkdown(data), (err)=>{
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             console.log("Generating README...");
-//         }
-//     })
-// })
-// }
 
-init();
+};
+
+function newEmployee(){
+    inquirer
+    .prompt(addNewEmployee)
+    .then((data)=>{
+        console.log(data)
+        
+})
+};
+
+function getEngineerInfo(){
+    inquirer
+    .prompt(engineerQuestions)
+    .then((data)=>{
+        console.log(data)
+        
+})
+};
+
+function getInternInfo(){
+    inquirer
+    .prompt(internQuestions)
+    .then((data)=>{
+        console.log(data)
+        
+})
+};
+
+getManagerInfo();
