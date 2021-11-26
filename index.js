@@ -3,17 +3,24 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateMarkdown = require("./src/markdown");
-const renderManager = require("./src/markdown");
-const { validate } = require("@babel/types");
-const { number } = require("yargs");
-const { not } = require("expect");
+const path = require('path');
+// const generateMarkdown = require("./src/markdown");
+// const renderManager = require("./src/markdown");
+// const { validate } = require("@babel/types");
+// const { number } = require("yargs");
+// const { not } = require("expect");
+const OUTPUT_DIR = path.resolve(__dirname, "output")
+const outputPath = path.join(OUTPUT_DIR, "teamsite.html")
+const render = require("./src/markdown")
+
 
 const teamArray = []
+const idArray = []
 
 
 function teamDisplay() {
     function createManager() {
+        console.log("this is working")
         inquirer.prompt([
             {
                 type: "input",
@@ -76,6 +83,7 @@ function teamDisplay() {
                 answers.mangerEmail,
                 answers.mangerOffice);
             teamArray.push(manager);
+            idArray.push(answers.managerId);
             //empty id array for manager id 
             newEmployee();
         });
@@ -85,12 +93,12 @@ function teamDisplay() {
     function newEmployee() {
         inquirer.prompt([{
             type: "list",
-            name: "role",
+            name: "memberChoice",
             message: "Which type of team member would you like to add?",
             choices: ["Engineer", "Intern", "I do no want to add any more team members."]
         }
         ]).then(userChoice => {
-            switch (userChoice.role) {
+            switch (userChoice.memberChoice) {
                 case "Engineer":
                     addEngineer();
                     break;
@@ -126,7 +134,11 @@ function teamDisplay() {
                         /^[1-9]\d*$/
                     );
                     if (pass) {
-                        return true;
+                        if (idArray.includes(answer)){
+                            return "this ID is already taken please choose a new ID"
+                        } else {
+                            return true
+                        }
                     }
                     return "please enter a positive number greater tha zero"
                 }
@@ -165,6 +177,7 @@ function teamDisplay() {
                 answers.engineerEmail,
                 answers.engineerGithub);
             teamArray.push(engineer);
+            idArray.push(answers.engineerId);
             //empty id array for manager id 
             newEmployee();
         })
@@ -192,7 +205,11 @@ function teamDisplay() {
                     /^[1-9]\d*$/
                 );
                 if (pass) {
-                    return true;
+                    if (idArray.includes(answer)){
+                        return "this ID is already taken please choose a new ID"
+                    } else {
+                        return true
+                    }
                 }
                 return "please enter a positive number greater tha zero"
             }
@@ -228,6 +245,7 @@ function teamDisplay() {
                 answers.internEmail,
                 answers.internSchool);
             teamArray.push(intern);
+            idArray.push(answers.internId);
             //empty id array for manager id 
             newEmployee();
         })
@@ -238,11 +256,12 @@ function teamDisplay() {
         if (!fs.existsSync(OUTPUT_DIR)) {
             fs.mkdirSync(OUTPUT_DIR)
 
+            console.log("this is my team!");
+            console.log(teamArray);
         }
         fs.writeFileSync(outputPath, render(teamArray), "utf-8");
     }
 
-    console.log("this is my team!");
     createManager();
     // addEngineer();
     // addIntern();
