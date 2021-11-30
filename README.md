@@ -1,10 +1,6 @@
 # teamProfileGenerator
 ![Link to Github](https://github.com/jdkowal/teamProfileGenerator)
-![Screenshot](assets\images\screenshot.png)
-
-## CURRENT NOTE
-
-right now I am having issues with the markdown. The screenshot shows my current error, going to continue to work on this 
+[Link to the video](https://drive.google.com/file/d/1F8M_QQZA5t82ifQyZ5sGc68A_DNVZ1fF/view)
 
 ## Description
 

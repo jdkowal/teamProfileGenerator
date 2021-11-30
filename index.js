@@ -10,7 +10,7 @@ const path = require('path');
 // const { number } = require("yargs");
 // const { not } = require("expect");
 const OUTPUT_DIR = path.resolve(__dirname, "output")
-const outputPath = path.join(OUTPUT_DIR, "teamsite.html")
+const outputPath = path.join(OUTPUT_DIR, "team.html")
 const render = require("./src/markdown")
 
 
@@ -20,12 +20,11 @@ const idArray = []
 
 function teamDisplay() {
     function createManager() {
-        console.log("this is working")
         inquirer.prompt([
             {
                 type: "input",
                 name: "managerName",
-                message: "What is the team member's name?",
+                message: "What is the team manager's name?",
                 validate: answer => {
                     if (answer !== "") {
                         return true;
@@ -36,7 +35,7 @@ function teamDisplay() {
             {
                 type: "input",
                 name: "managerId",
-                message: "What is the team member's ID number?",
+                message: "What is the manager's ID number?",
                 validate: answer => {
                     const pass = answer.match(
                         /^[1-9]\d*$/
@@ -50,7 +49,7 @@ function teamDisplay() {
             {
                 type: "input",
                 name: "managerEmail",
-                message: "What is the member's email?",
+                message: "What is the manager's email?",
                 validate: answer => {
                     const pass = answer.match(
                         /\S+@\S+\.\S+/
@@ -58,7 +57,7 @@ function teamDisplay() {
                     if (pass) {
                         return true;
                     }
-                    return "please enter a valid email address"
+                    return "please enter a valid email address";
                 }
             },
             {
@@ -72,16 +71,12 @@ function teamDisplay() {
                     if (pass) {
                         return true;
                     }
-                    return "please enter a positive number greater tha zero"
+                    return "please enter a positive number greater tha zero";
                 }
             }
 
         ]).then(answers => {
-            const manager = new Manager(
-                answers.managerName,
-                answers.mangerId,
-                answers.mangerEmail,
-                answers.mangerOffice);
+            const manager = new Manager(answers.managerName, answers.mangerId, answers.mangerEmail, answers.mangerOffice);
             teamArray.push(manager);
             idArray.push(answers.managerId);
             //empty id array for manager id 
@@ -107,6 +102,7 @@ function teamDisplay() {
                     break;
                 default:
                     buildTeam();
+                    console.log("this is my team!");
             }
         });
 
@@ -134,7 +130,7 @@ function teamDisplay() {
                         /^[1-9]\d*$/
                     );
                     if (pass) {
-                        if (idArray.includes(answer)){
+                        if (idArray.includes(answer)) {
                             return "this ID is already taken please choose a new ID"
                         } else {
                             return true
@@ -171,11 +167,7 @@ function teamDisplay() {
             }
 
         ]).then(answers => {
-            const engineer = new Engineer(
-                answers.engineerName,
-                answers.engineerId,
-                answers.engineerEmail,
-                answers.engineerGithub);
+            const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub);
             teamArray.push(engineer);
             idArray.push(answers.engineerId);
             //empty id array for manager id 
@@ -205,7 +197,7 @@ function teamDisplay() {
                     /^[1-9]\d*$/
                 );
                 if (pass) {
-                    if (idArray.includes(answer)){
+                    if (idArray.includes(answer)) {
                         return "this ID is already taken please choose a new ID"
                     } else {
                         return true
@@ -256,10 +248,9 @@ function teamDisplay() {
         if (!fs.existsSync(OUTPUT_DIR)) {
             fs.mkdirSync(OUTPUT_DIR)
 
-            console.log("this is my team!");
-            console.log(teamArray);
         }
         fs.writeFileSync(outputPath, render(teamArray), "utf-8");
+        
     }
 
     createManager();

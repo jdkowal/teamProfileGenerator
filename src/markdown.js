@@ -26,7 +26,7 @@ const generateTeam = team => {
         <div class="card-body">
             <ul class="list-group">
                 <li class="list-group-item">ID:${engineer.getId()} </li>
-                <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer}.getEmail()}</a></li>
+                <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
                 <li class="list-group-item">Github: <a href="https://github.com/${engineer.getGithub()}" target="_blank" rel="noopner noreferrer">${engineer.getGithub()}</a></li>
             </ul>
         </div>
@@ -42,7 +42,7 @@ const generateTeam = team => {
         <div class="card-body">
         <ul class="list-group">
         <li class="list-group-item">ID:${intern.getId()} </li>
-        <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${engineer}.getEmail()}</a></li>
+        <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
         <li class="list-group-item">School: ${intern.getSchool()}</li>
         </ul>
         </div>
@@ -77,7 +77,7 @@ module.exports = team => {
         </head>
         
         <body>
-            <div class="container-fluid">
+            <div class="container-fluid header">
                 <div class="row">
                     <div class="col-12 jumbotron nb-3 team-heading">
                         <h1 class="text-center">My Team</h1>
